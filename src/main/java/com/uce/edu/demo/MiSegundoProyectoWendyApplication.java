@@ -15,6 +15,8 @@ public class MiSegundoProyectoWendyApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("Creando el segundo proyecto en STS para Spring Framework");
+		System.out.println("segundo cambio");
+
 	}
 
 }
