@@ -27,7 +27,7 @@ public class MateriaRepositoryImpl implements IMateriaRepository{
 	}
 
 	@Override
-	public void actualizar(Estudiante e) {
+	public void actualizar(Materia e) {
 		// TODO Auto-generated method stub
 		System.out.println("se ha actualizado en la base la materia: "+e);
 
