@@ -9,15 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.uce.edu.demo.consultorio.CitaMedica;
 import com.uce.edu.demo.consultorio.CitaMedica2;
+import com.uce.edu.demo.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteService;
 
 @SpringBootApplication
 public class MiSegundoProyectoWendyApplication implements CommandLineRunner{
 
-	@Autowired
-	private CitaMedica citaMedica;
-	
-	@Autowired
-	private CitaMedica2 citaMedica2;
+	@Autowired//inyectando la interface para que el codigo sea mas desacoplado
+	private IEstudianteService estudianteService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MiSegundoProyectoWendyApplication.class, args);
@@ -27,11 +26,27 @@ public class MiSegundoProyectoWendyApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		String respuesta = citaMedica.agendar(LocalDateTime.now(), "Pepito", "Teran", 32, "Quito", "Pepito", 19);
+		Estudiante e = new Estudiante();
+		e.setNombre("Edison");
+		e.setApellido("Cayambe");
+		e.setCedula("1223435");
+		
+		this.estudianteService.ingresarEstudiante(e);
 
-		String respuesta2 = citaMedica2.agendar(LocalDateTime.now(), "Pepito", "Teran", 32, "Quito", "Pepito", 19);
-		System.out.println(respuesta);
-		System.out.println(respuesta2);
+		
+		Estudiante e1 = new Estudiante();
+		e1.setNombre("Pepito");
+		e1.setApellido("Perez");
+		e1.setCedula("09922382");
+		this.estudianteService.ingresarEstudiante(e1);
+		
+		
+		//usar los 3 metodos restantes
+		e.setCedula("13224");
+		this.estudianteService.actualizarEstudiante(e);
+		this.estudianteService.buscarPorApellido("Cayambe");
+		this.estudianteService.eliminarEstudiante("09922382");
+
 	}
 
 }
