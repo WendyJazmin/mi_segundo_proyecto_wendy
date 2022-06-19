@@ -2,20 +2,18 @@ package com.uce.edu.demo.consultorio;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CitaMedica {
+public class CitaMedica2 {
+
+	//3. Inyeccion de dependencia por metodos set
 
 	private LocalDateTime fechaCita;
 	private Doctor doctor;
 	private Paciente paciente;
 	
-	//2. inyeccion de dependencia por constructor
-	public CitaMedica(Doctor doctor, Paciente paciente) {
-		this.doctor = doctor;
-		this.paciente = paciente;
-	}
 	
 	public String agendar(LocalDateTime fechaCita,String nombre,String apellido, int edad,
 							String ciudad,String nombrepaciente, int edadPaciente) {
@@ -33,18 +31,23 @@ public class CitaMedica {
 		this.fechaCita = fechaCita;
 		
 		//se inserta la cita en la base de datos
-		return "cita agendada";
+		return "cita agendada2";
 	}
 	//set y get
 	public Doctor getDoctor() {
 		return doctor;
 	}
+	
+	//3. Inyeccion de dependencia por metodos set
+	@Autowired
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
 	public Paciente getPaciente() {
 		return paciente;
 	}
+	
+	@Autowired
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
