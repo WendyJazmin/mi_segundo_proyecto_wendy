@@ -8,52 +8,51 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.banco.modelo.CuentaBancaria;
 import com.uce.edu.demo.banco.modelo.Deposito;
+import com.uce.edu.demo.banco.modelo.Retiro;
 import com.uce.edu.demo.banco.repository.IDepositoRepository;
+import com.uce.edu.demo.banco.repository.IRetiroRepository;
 
 @Service
-public class DepositoServiceImpl implements IDepositoService{
-	
-	//aqui se coloca la logica del negocio
+public class RetiroServiceImpl implements IRetiroService{
 	
 	@Autowired
 	private ICuentaBancariaService bancariaService;
 	
 	@Autowired
-	private IDepositoRepository depositoRepository;
+	private IRetiroRepository retiroRepository;
 
 	@Override
-	public void realizarDeposito(String numeroCtaDestino, BigDecimal monto) {
+	public void realizarRetiro(String numeroCtaDestino, BigDecimal monto) {
 		// TODO Auto-generated method stub
 		CuentaBancaria ctaDestino = this.bancariaService.buscarCuenta(numeroCtaDestino);
 		BigDecimal saldoCtaDestino = ctaDestino.getSaldo();
-		BigDecimal saldoFinal = saldoCtaDestino.add(monto);
+		BigDecimal saldoFinal = saldoCtaDestino.subtract(monto);
 		ctaDestino.setSaldo(saldoFinal);
 		this.bancariaService.actualizarCuenta(ctaDestino);
 		
-		Deposito deposito = new Deposito();
-		deposito.setMonto(monto);
-		deposito.setNumeroCuenta(numeroCtaDestino);
-		deposito.setFechaDeposito(LocalDateTime.now());
-		this.depositoRepository.insertar(deposito);
-		
+		Retiro retiro = new Retiro();
+		retiro.setMonto(monto);
+		retiro.setNumeroCuenta(numeroCtaDestino);
+		retiro.setFechaRetiro(LocalDateTime.now());;
+		this.retiroRepository.insertar(retiro);
 	}
 
 	@Override
-	public Deposito buscarDeposito(String numeroCuenta) {
+	public Retiro buscarRetiro(String numeroCuenta) {
 		// TODO Auto-generated method stub
-		return this.depositoRepository.buscar(numeroCuenta);
+		return this.retiroRepository.buscar(numeroCuenta);
 	}
 
 	@Override
-	public void actualizarDeposito(Deposito d) {
+	public void actualizarRetiro(Retiro r) {
 		// TODO Auto-generated method stub
-		this.depositoRepository.actualizar(d);
+		this.retiroRepository.actualizar(r);
 	}
 
 	@Override
-	public void eliminarDeposito(String numeroCuenta) {
+	public void eliminarRetiro(String numeroCuenta) {
 		// TODO Auto-generated method stub
-		this.depositoRepository.eliminar(numeroCuenta);
+		this.retiroRepository.eliminar(numeroCuenta);
 	}
 
 }

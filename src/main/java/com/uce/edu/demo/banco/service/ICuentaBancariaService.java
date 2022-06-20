@@ -1,13 +1,18 @@
 package com.uce.edu.demo.banco.service;
 
+import java.math.BigDecimal;
+
 import com.uce.edu.demo.banco.modelo.CuentaBancaria;
 
 public interface ICuentaBancariaService {
 	
 
-	public void actualizar(CuentaBancaria c);
+	public void actualizarCuenta(CuentaBancaria c);
 	
-	public CuentaBancaria buscar(String numero);
+	public CuentaBancaria buscarCuenta(String numero);
+	
+	public void insertarCuenta(String numeroCuenta, BigDecimal saldo);
 
+	public void eliminarCuenta(String numeroCuenta);
 
 }
